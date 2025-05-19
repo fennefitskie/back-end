@@ -1,34 +1,11 @@
 <?php
-$host = 'localhost';
-$dbname = 'characters';
-$user = 'root';
-$pass = '';
+require_once 'database.php';
 
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die();
-}
-
-// Karakters ophalen
-$characters = [];
-$tables = $conn->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
-
-foreach ($tables as $table) {
-    $rows = $conn->query("SELECT * FROM `$table`")->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($rows as $row) {
-        $characters[] = $row;
-    }
-}
+// Karakters ophalen uit juiste tabel en sorteren op naam (A-Z)
+$sql = "SELECT * FROM characters ORDER BY name ASC";
+$characters = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 $aantalCharacters = count($characters);
-
-// Sorteer op naam (alfabetisch)
-usort($characters, function ($a, $b) {
-    return strcmp($a['name'], $b['name']);
-});
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,18 +13,18 @@ usort($characters, function ($a, $b) {
     <meta charset="UTF-8">
     <title>All Characters</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" crossorigin="anonymous">
-    <link href="resources/css/style.css" rel="stylesheet"/>
+    <link href="resources/css/style.css" rel="stylesheet">
 </head>
 <body>
-<header><h1>Alle <?php echo($aantalCharacters) ?> characters uit de database</h1></header>
+<header><h1>Alle <?= $aantalCharacters ?> characters uit de database</h1></header>
 <div id="container">
     <?php foreach ($characters as $char): ?>
-        <a class="item" href="character.php?id=<?= $char['id'] ?? '' ?>">
+        <a class="item" href="character.php?id=<?= htmlspecialchars($char['id']) ?>">
             <div class="left">
-                <img class="avatar" src="resources/images/<?= $char['avatar'] ?? 'default.jpg' ?>">
+                <img class="avatar" src="resources/images/<?= htmlspecialchars($char['avatar'] ?? 'default.jpg') ?>" alt="Character image">
             </div>
             <div class="right">
-                <h2><?= $char['name'] ?? 'Onbekend' ?></h2>
+                <h2><?= htmlspecialchars($char['name']) ?></h2>
                 <div class="stats">
                     <ul class="fa-ul">
                         <li><span class="fa-li"><i class="fas fa-heart"></i></span> <?= $char['health'] ?? '?' ?></li>
@@ -60,6 +37,6 @@ usort($characters, function ($a, $b) {
         </a>
     <?php endforeach; ?>
 </div>
-<footer>&copy; Fenne <?= date("Y") ?></footer>
+<?php include('footer.php'); ?>
 </body>
 </html>

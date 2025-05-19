@@ -1,0 +1,1 @@
+<footer>&copy; Fenne <?= date("Y") ?></footer>
