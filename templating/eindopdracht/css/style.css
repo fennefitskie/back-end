@@ -1,0 +1,113 @@
+:root {
+    --bg-color: #1a1a1a;
+    --accent-color: #88be8e;
+    --text-color: #f0f0f0;
+    --link-hover: #c8cbcc;
+    --border-color: #333;
+    --transition-speed: 0.3s;
+    --card-bg: #2a2a2a;
+    --card-radius: 12px;
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Navigatiebalk */
+ul {
+    list-style-type: none;
+    padding: 1rem 2rem;
+    margin: 0 auto 3rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    max-width: 90%;
+    flex-wrap: wrap;
+}
+
+li {
+    transition: transform var(--transition-speed);
+}
+
+li:hover {
+    transform: scale(1.05);
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+a:hover {
+    background-color: var(--link-hover);
+    color: var(--bg-color);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo img {
+    height: 32px;
+    width: auto;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+.content {
+    background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+    padding: 2.5rem;
+    border-radius: 16px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.content:hover {
+    transform: scale(1.01);
+}
+
+.content h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    text-shadow: 1px 1px 4px #000;
+}
+
+.content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 700px;
+    text-align: center;
+}
+
+.content img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
